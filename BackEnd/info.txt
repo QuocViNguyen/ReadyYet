@@ -1,0 +1,3 @@
+MongoDB:
+    username: quocvinguyen
+    password: zsqRZXyq2n0yA5ki (auto generated)
