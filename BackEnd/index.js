@@ -17,17 +17,19 @@ const PORT = 4000;
 app.use(express.urlencoded({ extended: false }));
 app.use(flash())
 
-initializePassport(
-  passport,
-  email => {
-    User.findOne({'email' : email}, function( error, docs){
+async function FindUserByEmail( email ){
+    await User.findOne({'email' : email}, function( error, docs){
         if (error){
             return null;
         }else{
             return docs;
         }
     })
-  },
+}
+
+initializePassport(
+  passport,
+  FindUserByEmail,
   id =>{
     User.findOne({'id' : id}, function( error, docs){
         if (error){
@@ -36,7 +38,6 @@ initializePassport(
             return docs;
         }
     })
-    return null;
   }
 )
 
@@ -120,5 +121,3 @@ app.post("/posted", (req, res) =>{
 //#region 
 
 app.listen(PORT);
-
-console.log("HEE");
