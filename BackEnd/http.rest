@@ -5,5 +5,10 @@ GET http://localhost:4000/
 GET http://localhost:4000/add-user
 
 ###
-GET http://localhost:4000/login?email=quocvinguyen.official@gmail.com
+POST http://localhost:4000/login?email=quocvinguyen.official@gmail.com&password=Mapde925
 
+###
+POST http://localhost:4000/posted
+
+###
+POST http://localhost:4000/login
