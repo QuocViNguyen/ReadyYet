@@ -17,21 +17,16 @@ const PORT = 4000;
 app.use(express.urlencoded({ extended: false }));
 app.use(flash())
 
-async function FindUserByEmail( email ){
-    await User.findOne({'email' : email}, function( error, docs){
-        if (error){
-            return null;
-        }else{
-            return docs;
-        }
-    })
+async function FindUserByEmail(email){
+    const result = await User.findOne({'email' : email});
+    return result;
 }
 
 initializePassport(
   passport,
   FindUserByEmail,
   id =>{
-    User.findOne({'id' : id}, function( error, docs){
+    User.findById(id, function(error, docs){
         if (error){
             return null;
         }else{
