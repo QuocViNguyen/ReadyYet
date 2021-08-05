@@ -16,6 +16,7 @@ const dbURI = "mongodb+srv://quocvinguyen:zsqRZXyq2n0yA5ki@cluster-basic.levl5.m
 const app = express();
 const PORT = 4000;
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 app.use(flash())
 app.use(cors())
 
@@ -94,22 +95,6 @@ app.post("/login", passport.authenticate('local', {
     failureFlash: true
 }), (req, res)=>{
     console.log(req)
-    // try {
-    //     // const harshedPwd = await bcrypt.hash(req.body.password, 10);
-    //     console.log(User.findOne({'email' : req.query.email}))
-    //     User.findOne({'email' : req.query.email}, function( error, docs){
-    //         if (error){
-    //             console.log("Error" + error);
-    //             res.send(error);
-    //         }else{
-    //             console.log("POST Result: "+ docs.firstname);
-    //             res.send("RESULT: "+ docs);
-    //         }
-    //     })
-        
-    // } catch {
-        
-    // }
     res.send("LOGIN SUCCESSFUL");
 })
 

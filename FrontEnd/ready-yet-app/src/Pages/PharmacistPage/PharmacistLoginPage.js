@@ -16,25 +16,24 @@ class PharmacistLoginPage extends Component {
     }
 
     handleClick = (e) => {
-        console.log(e.type)
-        console.log(this.state.email);
-        console.log(this.state.password);
-        this.asios(this.state.email, this.state.password);
+        // console.log(e.type)
+        // console.log(this.state.email);
+        // console.log(this.state.password);
+        console.log("EMAIL FROM HANDLE CLICK: " + this.state.email);
+        const userEmail = this.state.email;
+        const userPassword = this.state.password;
+        this.asios(userEmail, userPassword);
         
     };
 
     asios(userEmail, userPassword){
-
         //If you pass this exact url and don't add those value, it run correctly. But if the path is .../login only, it is not working
         //The query params do not get thro.
-        console.log("EMAIL: :" + userEmail);
         axios.post('http://localhost:4000/login',{
-            params:{
-                email : userEmail,
-                password: userPassword
-            }
+            email : userEmail,
+            password: userPassword
         }).then(response =>{
-            console.log(response)
+            console.log(response.data)
             }
         )
     }
@@ -50,7 +49,7 @@ class PharmacistLoginPage extends Component {
                                 this.setState({email : event.target.value});}}/>
                             <TextField id="outlined-basic" label="Password" variant="outlined" type='password' value={this.state.password} onChange = {(event)=>{
                                 this.setState({password : event.target.value});}}/>
-                            <Button variant="contained" color="primary" onClick={this.asios}>
+                            <Button variant="contained" color="primary" onClick={this.handleClick}>
                                 Log In
                             </Button>
                         </Box>
