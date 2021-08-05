@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Box, Button } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import PharmacistLoginPage from '../PharmacistPage/PharmacistLoginPage';
 import EntryPageContent from './EntryPageContent';

@@ -7,6 +7,7 @@ const passport = require("passport");
 const initializePassport = require('./passport-config');
 const flash = require("express-flash");
 const session = require("express-session");
+const cors =  require('cors');
 
 //#endregion
 
@@ -16,6 +17,7 @@ const app = express();
 const PORT = 4000;
 app.use(express.urlencoded({ extended: false }));
 app.use(flash())
+app.use(cors())
 
 async function FindUserByEmail(email){
     const result = await User.findOne({'email' : email});
@@ -82,6 +84,10 @@ app.get("/delete-all", (req, res)=>{
     User.deleteMany({}).then((result) => {
         res.send("Deleted all documents in user collection");
     })
+})
+
+app.get("/getSampleRespond", (req, res)=>{
+    res.json({status: 'success'})
 })
 
 app.post("/login", passport.authenticate('local', {
