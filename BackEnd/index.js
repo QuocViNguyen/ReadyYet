@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const User = require('./models/users');
+const Order = require('./models/orders');
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const initializePassport = require('./passport-config');
@@ -25,18 +26,15 @@ async function FindUserByEmail(email){
     return result;
 }
 
+async function FindUserById(id){
+    const result = await User.findById(id);
+    return result;
+}
+
 initializePassport(
   passport,
   FindUserByEmail,
-  id =>{
-    User.findById(id, function(error, docs){
-        if (error){
-            return null;
-        }else{
-            return docs;
-        }
-    })
-  }
+  FindUserById
 )
 
 
@@ -81,6 +79,26 @@ app.get("/add-user", async (req, res)=>{
     });
 })
 
+app.get("/add-order", async (req, res)=>{
+    const newOrder = new Order({patient:[{
+        firstname: "John",
+        lastname: "Doe",
+        email: "JohnDoeFakeEmail@faking.com",
+        phonenumber: "2042919444"
+    }],
+    pickuptime: new Date()
+});
+
+    newOrder.save()
+    .then((result) => {
+        res.send("new order added");
+    })
+    .catch((error) => {
+
+    });
+})
+
+
 app.get("/delete-all", (req, res)=>{
     User.deleteMany({}).then((result) => {
         res.send("Deleted all documents in user collection");
@@ -95,14 +113,12 @@ app.post("/login", passport.authenticate('local', {
     failureFlash: true
 }), (req, res)=>{
     console.log(req)
-    res.send("LOGIN SUCCESSFUL");
+    res.send();
 })
 
 app.post("/posted", (req, res) =>{
     res.send("POSTED");
 })
-
-
 
 //#region 
 
