@@ -120,6 +120,11 @@ app.post("/posted", (req, res) =>{
     res.send("POSTED");
 })
 
+
+app.get("/getssid", (req, res) =>{
+    res.send(req.headers.session);
+
+})
 //#region 
 
 app.listen(PORT);

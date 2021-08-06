@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import PharmacistLoginPage from '../PharmacistPage/PharmacistLoginPage';
 import EntryPageContent from './EntryPageContent';
+import LoginSuccessPage from '../PharmacistPage/LoginSuccessPage';
 
 class EntryPage extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class EntryPage extends Component {
                     <Switch>
                         <Route exact path='/' component={EntryPageContent} />
                         <Route exact path='/login' component={PharmacistLoginPage} />
+                        <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'}/>
                     </Switch>
                 </Box>
             </Router>

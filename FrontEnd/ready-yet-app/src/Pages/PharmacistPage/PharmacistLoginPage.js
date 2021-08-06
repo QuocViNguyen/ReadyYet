@@ -4,21 +4,17 @@ import { Box, Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import axios from 'axios';
-
-
+import LoginSuccessPage from './LoginSuccessPage';
 class PharmacistLoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
           }
     }
 
     handleClick = (e) => {
-        // console.log(e.type)
-        // console.log(this.state.email);
-        // console.log(this.state.password);
         console.log("EMAIL FROM HANDLE CLICK: " + this.state.email);
         const userEmail = this.state.email;
         const userPassword = this.state.password;
@@ -27,15 +23,19 @@ class PharmacistLoginPage extends Component {
     };
 
     asios(userEmail, userPassword){
-        //If you pass this exact url and don't add those value, it run correctly. But if the path is .../login only, it is not working
-        //The query params do not get thro.
         axios.post('http://localhost:4000/login',{
             email : userEmail,
             password: userPassword
         }).then(response =>{
             console.log(response.data)
+            this.changeRoute()
             }
         )
+    }
+
+    changeRoute= () => {
+        // <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'}/>
+            this.props.history.push('/loginsuccess');
     }
     
     render() { 
