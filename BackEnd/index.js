@@ -31,6 +31,11 @@ async function FindUserById(id){
     return result;
 }
 
+async function GetOrders(){
+    const orders = await Order.find();
+    return orders;
+}
+
 initializePassport(
   passport,
   FindUserByEmail,
@@ -81,10 +86,10 @@ app.get("/add-user", async (req, res)=>{
 
 app.get("/add-order", async (req, res)=>{
     const newOrder = new Order({patient:[{
-        firstname: "John",
-        lastname: "Doe",
-        email: "JohnDoeFakeEmail@faking.com",
-        phonenumber: "2042919444"
+        firstname: "Ben",
+        lastname: "Wyatts",
+        email: "benthelord@gmail.com",
+        phonenumber: "290285082"
     }],
     pickuptime: new Date()
 });
@@ -97,7 +102,6 @@ app.get("/add-order", async (req, res)=>{
 
     });
 })
-
 
 app.get("/delete-all", (req, res)=>{
     User.deleteMany({}).then((result) => {
@@ -120,10 +124,13 @@ app.post("/posted", (req, res) =>{
     res.send("POSTED");
 })
 
-
 app.get("/getssid", (req, res) =>{
     res.send(req.headers.session);
+})
 
+app.get("/getOrders", async (req, res) =>{
+    const orders = await GetOrders();
+    res.send(orders);
 })
 //#region 
 

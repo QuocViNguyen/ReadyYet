@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router
 import PharmacistLoginPage from '../PharmacistPage/PharmacistLoginPage';
 import EntryPageContent from './EntryPageContent';
 import LoginSuccessPage from '../PharmacistPage/LoginSuccessPage';
+import AddOrderPage from '../PharmacistPage/AddOrderPage';
 
 class EntryPage extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class EntryPage extends Component {
                         <Route exact path='/' component={EntryPageContent} />
                         <Route exact path='/login' component={PharmacistLoginPage} />
                         <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'}/>
+                        <Route exact path='/addOrderPage' component={AddOrderPage} />
                     </Switch>
                 </Box>
             </Router>

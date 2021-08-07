@@ -18,3 +18,6 @@ GET http://localhost:4000/getSampleRespond
 
 ### 
 GET http://localhost:4000/add-order
+
+### 
+GET http://localhost:4000/getOrders
