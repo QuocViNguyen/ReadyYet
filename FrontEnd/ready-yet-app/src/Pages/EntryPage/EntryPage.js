@@ -6,6 +6,7 @@ import PharmacistLoginPage from '../PharmacistPage/PharmacistLoginPage';
 import EntryPageContent from './EntryPageContent';
 import LoginSuccessPage from '../PharmacistPage/LoginSuccessPage';
 import AddOrderPage from '../PharmacistPage/AddOrderPage';
+import ViewOrderPage from '../PharmacistPage/ViewOrderPage';
 
 class EntryPage extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class EntryPage extends Component {
                         <Route exact path='/' component={EntryPageContent} />
                         <Route exact path='/login' component={PharmacistLoginPage} />
                         <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'}/>
-                        <Route exact path='/addOrderPage' component={AddOrderPage} />
+                        <Route exact path='/ViewOrderPage' component={ViewOrderPage} />
                     </Switch>
                 </Box>
             </Router>
