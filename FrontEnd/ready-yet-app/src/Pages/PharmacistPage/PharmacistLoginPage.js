@@ -16,11 +16,11 @@ class PharmacistLoginPage extends Component {
     }
 
     handleClick = (e) => {
+        e.preventDefault();
         console.log("EMAIL FROM HANDLE CLICK: " + this.state.email);
         const userEmail = this.state.email;
         const userPassword = this.state.password;
         this.asios(userEmail, userPassword);
-        
     };
 
     asios(userEmail, userPassword){
@@ -43,13 +43,13 @@ class PharmacistLoginPage extends Component {
             <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
                 <Box className='h-1/2 w-full flex items-center justify-center flex-col'>
                     <Box className='text-3xl pb-10 font-semibold'>SIGN IN</Box>
-                    <form>
+                    <form onSubmit={this.handleClick}>
                         <Box className="flex flex-col space-y-6 ">
                             <TextField id="outlined-basic" label="Username" variant="outlined" value={this.state.email} onChange = {(event)=>{
                                 this.setState({email : event.target.value});}}/>
                             <TextField id="outlined-basic" label="Password" variant="outlined" type='password' value={this.state.password} onChange = {(event)=>{
                                 this.setState({password : event.target.value});}}/>
-                            <Button variant="contained" color="primary" onClick={this.handleClick}>
+                            <Button type="submit" variant="contained" color="primary" >
                                 Log In
                             </Button>
                         </Box>
