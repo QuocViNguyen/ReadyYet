@@ -6,16 +6,31 @@ import { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 
-function OnClickSendNewUser() {
-  return ""
-}
-
 const AddOrderPage = () => {
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phonenumber, setPhone] = useState('');
   const [pickuptime, setPickUpDate] = useState(new Date());
+  const [isfilled, setFill] = useState(false);
+
+  useEffect(() =>{
+    CheckEmpty()
+  }, [firstname, lastname, email, phonenumber, pickuptime])
+
+  function CheckEmpty(){
+    if (firstname && lastname && email && phonenumber){
+      let rightnow = new Date();
+      if (rightnow >= pickuptime){
+        setFill(false)
+      }else{
+        setFill(true)
+      }
+    }else{
+      setFill(false)
+    }
+
+  }
 
   return (
     <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
@@ -34,13 +49,17 @@ const AddOrderPage = () => {
               id="datetime-local"
               label="Pick Up Time"
               type="datetime-local"
-              defaultValue= "2017-05-24T10:30"
+              defaultValue={new Date().toISOString().slice(0, 16)}
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange = {(event)=>{setPickUpDate(event.target.value)}}
+              inputProps={{
+                min: new Date().toISOString().slice(0, 16)
+              }}
             />
 
-            <Button variant="contained" color="primary" >
+            <Button variant="contained" id="addbtn" color="primary" disabled={!isfilled}>
                 ADD
             </Button>
         </Box>
