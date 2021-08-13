@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { Box, Button } from '@material-ui/core';
 
-function formatDate(isoTime) {
+function formatDate(parseTime) {
   const nth = function(d) {
     if (d > 3 && d < 21) return 'th';
     switch (d % 10) {
@@ -16,28 +16,38 @@ function formatDate(isoTime) {
       default: return "th";
     }
   }
-  const parseTime = new Date(isoTime)
+  //const parseTime = new Date(isoTime)
   let themonth = parseTime.toLocaleString('default', { month: 'short' });
   let thedate = parseTime.getDate()  + nth(parseTime.getDate());
   let theyear = parseTime.getFullYear();
   let thetime = `${parseTime.getHours()}:${parseTime.getMinutes()}`
   let result = `${themonth} ${thedate} ${theyear} at ${thetime}`
+
+  if (isExpire(parseTime)){
+    result += ' (pass due)';
+  }
   return result;
 }
 
 function mapMyOrder(order) {
-    const time = formatDate(order.pickuptime)
-    
+    const parseTime = new Date(order.pickuptime)
     const rowItem = {
         id: order.patient[0]._id,
         lastName: order.patient[0].lastname,
         firstName: order.patient[0].firstname,
         email: order.patient[0].email,
         phoneNumber: order.patient[0].phonenumber,
-        pickUpTime: time
+        pickUpTime: parseTime
     }
-      
     return rowItem;
+}
+
+function isExpire(time) {
+  const now = new Date();
+  if (time < now){
+    return true;
+  }
+  return false;
 }
 
 function ViewOrderPage() {
@@ -79,8 +89,11 @@ function ViewOrderPage() {
           description: 'Estimate pick up time',
           type: 'string',
           sortable: true,
-          width: 200,
-        }
+          width: 240,
+          valueFormatter: (params) => {
+            return formatDate(params.value);
+          },
+        },
       ];
 
     useEffect(() => {
@@ -88,7 +101,6 @@ function ViewOrderPage() {
             const data = response.data;
             const mapped = data.map(mapMyOrder);
             setRow(mapped);
-            console.log(rows);
         })
     }, [])
 
@@ -104,6 +116,15 @@ function ViewOrderPage() {
                 pageSize={10}
                 checkboxSelection
                 autoHeight={true}
+                getCellClassName={(params) => {
+                  if (params.field === 'pickUpTime'){
+                    // console.log(params)
+                    return isExpire(params.value) ? 'bg-red-400' : 'bg-green-300';
+                  }
+                }}
+                onCellClick={(params) =>{
+                  console.log( params)
+                }}
               />
           </Box>
         </Box>

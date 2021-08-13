@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require('./models/users');
 const Order = require('./models/orders');
+const Pharmacy = require('./models/pharmacies');
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const initializePassport = require('./passport-config');
@@ -21,6 +22,8 @@ app.use(express.json())
 app.use(flash())
 app.use(cors())
 
+mongoose.set('useFindAndModify', false);
+
 async function FindUserByEmail(email){
     const result = await User.findOne({'email' : email});
     return result;
@@ -34,6 +37,11 @@ async function FindUserById(id){
 async function GetOrders(){
     const orders = await Order.find();
     return orders;
+}
+
+async function GetPharmacies(){
+    const pharmacies = await Pharmacy.find();
+    return pharmacies;
 }
 
 initializePassport(
@@ -68,11 +76,11 @@ app.get("/", (req, res)=>{
 })
 
 app.get("/add-user", async (req, res)=>{
-    const harshedPwd = await bcrypt.hash("Mapde925",10);
+    const harshedPwd = await bcrypt.hash("anhyeuem2202",10);
     const newUser = new User({
-        firstname: "Jarvis",
-        lastname: "Nguyen",
-        email: "charlesivnguyen4@yahoo.com",
+        firstname: "Lena",
+        lastname: "Dao",
+        email: "2202@yahoo.com",
         password: harshedPwd
     });
     newUser.save()
@@ -86,12 +94,12 @@ app.get("/add-user", async (req, res)=>{
 
 app.get("/add-order", async (req, res)=>{
     const newOrder = new Order({patient:[{
-        firstname: "Ben",
-        lastname: "Wyatts",
-        email: "benthelord@gmail.com",
-        phonenumber: "290285082"
+        firstname: "Chris",
+        lastname: "Treager",
+        email: "chrispov@gmail.com",
+        phonenumber: "290223262"
     }],
-    pickuptime: new Date()
+    pickuptime: new Date(2021,09,08,04,30,30)
 });
 
     newOrder.save()
@@ -131,6 +139,25 @@ app.get("/getssid", (req, res) =>{
 app.get("/getOrders", async (req, res) =>{
     const orders = await GetOrders();
     res.send(orders);
+})
+
+app.post("/addPhamarcy", async (req, res) =>{
+    const newPharmacy = new Pharmacy({
+        name: 'US Pharmacy',
+        location: 'Some where in the US',
+        phonenumber: '2142325545'
+    })
+    newPharmacy.save().then((result) =>{
+        res.send("New Pharmacy Added");
+    })
+    .catch((error) =>{
+        res.send(error)
+    })
+})
+
+app.get("/getPharmacies", async (req, res) =>{
+    const pharmacies = await GetPharmacies();
+    res.send(pharmacies);
 })
 //#region 
 

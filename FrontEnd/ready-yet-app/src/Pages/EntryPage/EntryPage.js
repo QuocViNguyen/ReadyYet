@@ -21,8 +21,9 @@ class EntryPage extends Component {
                     <Switch>
                         <Route exact path='/' component={EntryPageContent} />
                         <Route exact path='/login' component={PharmacistLoginPage} />
-                        <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'}/>
+                        <Route exact path='/loginsuccess' component={LoginSuccessPage} props={'ALOA'} />
                         <Route exact path='/ViewOrderPage' component={ViewOrderPage} />
+                        <Route exact path='/AddOrderPage' component={AddOrderPage} />
                     </Switch>
                 </Box>
             </Router>

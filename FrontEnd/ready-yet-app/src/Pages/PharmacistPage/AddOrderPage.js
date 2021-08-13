@@ -1,111 +1,52 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import axios from 'axios';
+import { Box, Button } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 
-//let rows;
+function OnClickSendNewUser() {
+  return ""
+}
 
-// const columns = [
-//   { field: 'id', headerName: 'ID', width: 90 },
-//   {
-//     field: 'firstName',
-//     headerName: 'First name',
-//     width: 150,
-//     editable: true,
-//   },
-//   {
-//     field: 'lastName',
-//     headerName: 'Last name',
-//     width: 150,
-//     editable: true,
-//   },
-//   {
-//     field: 'age',
-//     headerName: 'Age',
-//     type: 'number',
-//     width: 110,
-//     editable: true,
-//   },
-//   {
-//     field: 'fullName',
-//     headerName: 'Full name',
-//     description: 'This column has a value getter and is not sortable.',
-//     sortable: true,
-//     width: 160,
-//     valueGetter: (params) =>
-//       `${params.getValue(params.id, 'firstName') || ''} ${
-//         params.getValue(params.id, 'lastName') || ''
-//       }`,
-//   },
-// ];
-
-// const x = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', email: 'asda@asdaw.com', phoneNumber: '2042919411' },
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', email: 'asda@asdaw.com', phoneNumber: '2042919411' },
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', email: 'asda@asdaw.com', phoneNumber: '2042919411' },
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', email: 'asda@asdaw.com', phoneNumber: '2042919411' },
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', email: 'asda@asdaw.com', phoneNumber: '2042919411' },
-// ];
-
-// let rows;
-
-// function mapMyOrder(order) {
-//     const rowItem = {
-//         lastName: order.patient[0].lastname,
-//         firstName: order.patient[0].lastname,
-//         email: order.patient[0].email,
-//         phoneNumber: order.patient[0].phonenumber
-//     }
-//     return rowItem;
-// }
-
-// const getOrders = async () => {
-//     const result = axios.get('http://localhost:4000/getOrders');
-//     return result;
-// }
-
-export default async function AddOrderPage() {
-    const [loading, setLoading] = useState(true);
-    const columns = [
-        {
-          field: 'firstName',
-          headerName: 'First name',
-          width: 150,
-          editable: false,
-        },
-        {
-          field: 'lastName',
-          headerName: 'Last name',
-          width: 150,
-          editable: false,
-        },
-        {
-          field: 'email',
-          headerName: 'Age',
-          type: 'number',
-          width: 110,
-          editable: true,
-        },
-        {
-          field: 'phoneNumber',
-          headerName: 'Phone Number',
-          description: 'Patients phone number',
-          sortable: true,
-          width: 180,
-        }
-      ];
+const AddOrderPage = () => {
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhone] = useState('');
+  const [pickuptime, setPickUpDate] = useState(new Date());
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-    <CircularProgress/>
-      {/* <DataGrid
-        rows={getRows()}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        // disableSelectionOnClick
-      /> */}
-    </div>
-  );
+    <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
+    <Box className='h-1/4 flex items-center justify-center '>ADD NEW ORDER</Box>
+
+    <Box className='h-1/2 w-full flex items-center justify-center flex-col'>
+      <form>
+        <Box className="flex flex-col space-y-6 ">
+            <TextField id="filled-textarea" label="First Name" variant="outlined" value={firstname} onChange = {(event)=>{setFirstName(event.target.value)}}/>
+            <TextField id="filled-textarea" label="Last Name" variant="outlined" value={lastname} onChange = {(event)=>{setLastName(event.target.value)}}/>
+            <TextField id="filled-textarea" label="Email" variant="outlined" value={email} onChange = {(event)=>{setEmail(event.target.value)}}/>
+            <TextField id="filled-textarea" label="Phone Number" variant="outlined" value={phonenumber} onChange = {(event)=>{setPhone(event.target.value)}}/>
+            
+            <TextField
+              id="datetime-local"
+              label="Pick Up Time"
+              type="datetime-local"
+              defaultValue= "2017-05-24T10:30"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+
+            <Button variant="contained" color="primary" >
+                ADD
+            </Button>
+        </Box>
+      </form>
+    </Box>
+    </Box>
+    );
 }
+ 
+export default AddOrderPage;

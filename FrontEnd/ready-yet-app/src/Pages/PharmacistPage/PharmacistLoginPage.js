@@ -40,26 +40,24 @@ class PharmacistLoginPage extends Component {
     
     render() { 
         return (
-                <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
-                    <Box className='h-1/2 w-full flex items-center justify-center flex-col'>
-                        <Box className='text-3xl pb-10 font-semibold'>SIGN IN</Box>
-                        <form>
-                            <Box className="flex flex-col space-y-6 ">
-                                <TextField id="outlined-basic" label="Username" variant="outlined" value={this.state.email} onChange = {(event)=>{
-                                    this.setState({email : event.target.value});}}/>
-                                <TextField id="outlined-basic" label="Password" variant="outlined" type='password' value={this.state.password} onChange = {(event)=>{
-                                    this.setState({password : event.target.value});}}/>
-                                <Button variant="contained" color="primary" onClick={this.handleClick}>
-                                    Log In
-                                </Button>
-                            </Box>
-                        </form>
-                    </Box>
+            <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
+                <Box className='h-1/2 w-full flex items-center justify-center flex-col'>
+                    <Box className='text-3xl pb-10 font-semibold'>SIGN IN</Box>
+                    <form>
+                        <Box className="flex flex-col space-y-6 ">
+                            <TextField id="outlined-basic" label="Username" variant="outlined" value={this.state.email} onChange = {(event)=>{
+                                this.setState({email : event.target.value});}}/>
+                            <TextField id="outlined-basic" label="Password" variant="outlined" type='password' value={this.state.password} onChange = {(event)=>{
+                                this.setState({password : event.target.value});}}/>
+                            <Button variant="contained" color="primary" onClick={this.handleClick}>
+                                Log In
+                            </Button>
+                        </Box>
+                    </form>
                 </Box>
-
+            </Box>
         );
     }
 }
-
  
 export default PharmacistLoginPage;

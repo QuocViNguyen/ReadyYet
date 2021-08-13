@@ -21,3 +21,9 @@ GET http://localhost:4000/add-order
 
 ### 
 GET http://localhost:4000/getOrders
+
+###
+POST http://localhost:4000/addPhamarcy
+
+###
+Get http://localhost:4000/getPharmacies

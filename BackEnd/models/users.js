@@ -17,6 +17,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         require: true
+    },
+    pharmacy: {
+        type: String,
+        require: true
     }
 },{timestamps: true});
 
