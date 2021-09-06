@@ -5,8 +5,12 @@ import { Box, Button } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
+import { useHistory } from 'react-router';
+import * as orderUtil from '../../Utils/orderUtil';
 
 const AddOrderPage = () => {
+  let history = useHistory();
+
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -29,7 +33,22 @@ const AddOrderPage = () => {
     }else{
       setFill(false)
     }
+  }
 
+  function AddNewOrder(){
+    axios.post('http://localhost:4000/add-order', {
+      firstname,
+      lastname,
+      email,
+      phonenumber,
+      pickuptime
+    }).then(response=>{
+      console.log(response.data);
+      if (response.data === "SUCCESS"){
+        alert("New order added successfully");
+        setTimeout(function (){history.push('/loginsuccess')}, 2000);
+      }
+    })
   }
 
   return (
@@ -59,8 +78,12 @@ const AddOrderPage = () => {
               }}
             />
 
-            <Button variant="contained" id="addbtn" color="primary" disabled={!isfilled}>
+            <Button variant="contained" id="addbtn" color="primary" disabled={!isfilled} onClick={AddNewOrder}>
                 ADD
+            </Button>
+
+            <Button variant="contained" id="addbtn" color="primary" onClick={() => {history.push('/loginsuccess');}}>
+                BACK
             </Button>
         </Box>
       </form>

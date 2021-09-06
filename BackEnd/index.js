@@ -10,17 +10,16 @@ const initializePassport = require('./passport-config');
 const flash = require("express-flash");
 const session = require("express-session");
 const cors =  require('cors');
-
 //#endregion
 
 //#region Properties
 const dbURI = "mongodb+srv://quocvinguyen:zsqRZXyq2n0yA5ki@cluster-basic.levl5.mongodb.net/ReadyYetDB?retryWrites=true&w=majority";
 const app = express();
 const PORT = 4000;
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json())
-app.use(flash())
-app.use(cors())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(flash());
+app.use(cors());
 
 mongoose.set('useFindAndModify', false);
 
@@ -49,7 +48,6 @@ initializePassport(
   FindUserByEmail,
   FindUserById
 )
-
 
 app.use(session({
     secret: 'jarvis IV',
@@ -92,19 +90,19 @@ app.get("/add-user", async (req, res)=>{
     });
 })
 
-app.get("/add-order", async (req, res)=>{
+app.post("/add-order", async (req, res)=>{
     const newOrder = new Order({patient:[{
-        firstname: "Chris",
-        lastname: "Treager",
-        email: "chrispov@gmail.com",
-        phonenumber: "290223262"
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        phonenumber: req.body.phonenumber
     }],
-    pickuptime: new Date(2021,09,08,04,30,30)
+    pickuptime: req.body.pickuptime
 });
 
     newOrder.save()
     .then((result) => {
-        res.send("new order added");
+        res.send("SUCCESS");
     })
     .catch((error) => {
 
@@ -124,7 +122,6 @@ app.get("/getSampleRespond", (req, res)=>{
 app.post("/login", passport.authenticate('local', {
     failureFlash: true
 }), (req, res)=>{
-    console.log(req)
     res.send();
 })
 
@@ -133,7 +130,7 @@ app.post("/posted", (req, res) =>{
 })
 
 app.get("/getssid", (req, res) =>{
-    res.send(req.headers.session);
+    res.send(req.query.firstname);
 })
 
 app.get("/getOrders", async (req, res) =>{
@@ -158,6 +155,16 @@ app.post("/addPhamarcy", async (req, res) =>{
 app.get("/getPharmacies", async (req, res) =>{
     const pharmacies = await GetPharmacies();
     res.send(pharmacies);
+})
+
+app.post("/deleteSelectedOrders", async (req, res) =>{
+    let selectedOrders = JSON.parse(req.body.selectedOrders);
+    selectedOrders.forEach(element => {
+        Order.findByIdAndRemove(element).then((result)=>{
+            console.log("deleted " + element);
+            res.send("SUCCESS");
+        })
+    });
 })
 //#region 
 

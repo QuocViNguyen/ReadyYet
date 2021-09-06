@@ -11,7 +11,7 @@ import ViewOrderPage from '../PharmacistPage/ViewOrderPage';
 class EntryPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {}
     }
 
     render() { 
