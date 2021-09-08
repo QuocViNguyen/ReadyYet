@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { Box, Button } from '@material-ui/core';
-import LoginSuccessPage from './LoginSuccessPage';
 import { useHistory } from 'react-router';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -58,8 +57,6 @@ function isExpire(time) {
   }
   return false;
 }
-
-
 
 function ViewOrderPage() {
     let history = useHistory();
@@ -124,17 +121,11 @@ function ViewOrderPage() {
     };
 
     const handleClose = (event, reason) => {
-      // if (reason === 'clickaway') {
-      //   return;
-      // }
       setOpen(false);
     };
 
 
     const deletedSelectedOrders = (selectedOrders) =>{
-      // const bodyFormData = new FormData();
-      // console.log(JSON.stringify(selectedOrders));
-      // bodyFormData.append('selectedOrders', JSON.stringify(selectedOrders));
       axios.post('http://localhost:4000/deleteSelectedOrders', {
         selectedOrders: JSON.stringify(selectedOrders)
       }).then(response=>{
