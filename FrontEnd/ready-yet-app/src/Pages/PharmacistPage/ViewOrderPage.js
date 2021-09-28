@@ -9,7 +9,6 @@ import { useHistory } from 'react-router';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -45,6 +44,7 @@ function mapMyOrder(order) {
         firstName: order.patient[0].firstname,
         email: order.patient[0].email,
         phoneNumber: order.patient[0].phonenumber,
+        description: order.patient[0].description,
         pickUpTime: parseTime
     }
     return rowItem;
@@ -96,12 +96,19 @@ function ViewOrderPage() {
           width: 207,
         },
         {
+          field: 'description',
+          headerName: 'Description',
+          description: 'Order\'s Description',
+          sortable: true,
+          width: 207,
+        },
+        {
           field: 'pickUpTime',
           headerName: 'Pick Up Time',
           description: 'Estimate pick up time',
           type: 'string',
           sortable: true,
-          width: 340,
+          width: 300,
           valueFormatter: (params) => {
             return formatDate(params.value);
           },
@@ -112,6 +119,8 @@ function ViewOrderPage() {
         axios.get('http://localhost:4000/getOrders').then(response=>{
             const data = response.data;
             const mapped = data.map(mapMyOrder);
+            console.log(mapped);
+
             setRow(mapped);
         })
     }, []);

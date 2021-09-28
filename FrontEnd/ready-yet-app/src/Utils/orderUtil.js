@@ -6,6 +6,7 @@ export async function addOrder(data){
         lastname : data.lastname,
         email : data.email,
         phonenumber : data.phonenumber,
-        pickuptime : data.pickuptime
+        pickuptime : data.pickuptime,
+        description : data.description
     });
 }

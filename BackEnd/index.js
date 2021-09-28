@@ -95,7 +95,8 @@ app.post("/add-order", async (req, res)=>{
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        phonenumber: req.body.phonenumber
+        phonenumber: req.body.phonenumber,
+        description: req.body.description
     }],
     pickuptime: req.body.pickuptime
 });
@@ -123,10 +124,6 @@ app.post("/login", passport.authenticate('local', {
     failureFlash: true
 }), (req, res)=>{
     res.send();
-})
-
-app.post("/posted", (req, res) =>{
-    res.send("POSTED");
 })
 
 app.get("/getssid", (req, res) =>{
@@ -165,6 +162,14 @@ app.post("/deleteSelectedOrders", async (req, res) =>{
             res.send("SUCCESS");
         })
     });
+})
+
+app.post("/getOrdersByEmail", async (req, res) =>{
+    let email = req.body.email;
+    var orders = await Order.find({'patient.email' : email});
+    console.log(req.params);
+    res.send(orders);
+
 })
 //#region 
 

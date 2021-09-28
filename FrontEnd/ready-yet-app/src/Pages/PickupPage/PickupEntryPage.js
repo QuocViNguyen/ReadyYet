@@ -21,31 +21,43 @@ class LoginSuccessPage extends Component {
           }
     }
 
-
-
     getRequestOrder = (event)=>{
         event.preventDefault();
-        console.log(this.state.email.length);
-        this.validateEmail(this.state.email);
+
+        if(this.validateEmail(this.state.email)){
+            axios.post('http://localhost:4000/getOrdersByEmail',
+                {
+                    email: this.state.email
+                }
+              ).then(response=>{
+                console.log(response.data);
+
+                // if (response.data === "SUCCESS"){
+                //   popSuccessMessage();
+                //   setTimeout(function (){window.location.reload()}, 2000);
+                // }
+              })
+        }
     }
 
     validateEmail = (email) =>{
         var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/;
         if (email.length == 0){
             this.setState({popup: true, popupMessage: "Empty Email Detected!"});
-            return;
+            return false;
         }
         if (!regex.test(email)){
             this.setState({popup: true, popupMessage: "Invalid Email Detected!"});
-            return;
+            return false;
         }
+        return true;
     }
 
     render() { 
         return (
             <Box className='h-screen w-screen bg-blue-200 overflow-x-hidden overflow-y-scroll'>
                 <Box className='h-1/6 flex items-center justify-center'>SEARCH ORDER PAGE</Box>
-                        <Box className=' h-1/6 w-4/12 flex items-center justify-center mx-auto'>
+                        <Box className=' h-1/6 w-2/12 flex items-center justify-center mx-auto'>
                             <Grid container spacing={1} align='center'>
                                 <Grid item xs={12} className='space-x-10 md:space-x-60'>
                                     <form noValidate autoComplete="off" className='flex flex-col' onSubmit={this.getRequestOrder}>

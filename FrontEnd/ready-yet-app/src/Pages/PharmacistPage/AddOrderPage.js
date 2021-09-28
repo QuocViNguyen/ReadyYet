@@ -17,6 +17,7 @@ const AddOrderPage = () => {
   const [phonenumber, setPhone] = useState('');
   const [pickuptime, setPickUpDate] = useState(new Date());
   const [isfilled, setFill] = useState(false);
+  const [description, setDescription] = useState('');
 
   useEffect(() =>{
     CheckEmpty()
@@ -41,6 +42,7 @@ const AddOrderPage = () => {
       lastname,
       email,
       phonenumber,
+      description,
       pickuptime
     }).then(response=>{
       console.log(response.data);
@@ -62,8 +64,7 @@ const AddOrderPage = () => {
             <TextField id="filled-textarea" label="Last Name" variant="outlined" value={lastname} onChange = {(event)=>{setLastName(event.target.value)}}/>
             <TextField id="filled-textarea" label="Email" variant="outlined" value={email} onChange = {(event)=>{setEmail(event.target.value)}}/>
             <TextField id="filled-textarea" label="Phone Number" variant="outlined" value={phonenumber} onChange = {(event)=>{setPhone(event.target.value)}}/>
-            
-            
+            <TextField id="filled-textarea" label="Description" variant="outlined" value={description} onChange = {(event)=>{setDescription(event.target.value)}}/>
             <TextField
               id="datetime-local"
               label="Pick Up Time"
