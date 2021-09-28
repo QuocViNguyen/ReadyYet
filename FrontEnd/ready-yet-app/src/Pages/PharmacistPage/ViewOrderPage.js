@@ -180,17 +180,4 @@ function ViewOrderPage() {
     );
 }
 
-// function deletedSelectedOrders(selectedOrders){
-//   const bodyFormData = new FormData();
-
-//   bodyFormData.append('selectedOrders', JSON.stringify(selectedOrders));
-
-//   axios.post('http://localhost:4000/deleteSelectedOrders', bodyFormData).then(response=>{
-//     console.log(response.data);
-//     if (response.data == "SUCCESS"){
-//       popSuccessMessage();
-//     }
-//   })
-// }
- 
 export default ViewOrderPage;

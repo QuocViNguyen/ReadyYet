@@ -11,6 +11,8 @@
     "@material-ui/x-grid": "^4.0.0-alpha.36",
     "@material-ui/x-grid-data-generator": "^4.0.0-alpha.36",
     "@material-ui/x-license": "^4.0.0-alpha.36",
+    "@mui/icons-material": "^5.0.1",
+    "@mui/material": "^5.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -18,6 +20,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-popup-alert": "^2.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
