@@ -60,7 +60,7 @@ function isExpire(time) {
 
 function ViewOrderPage() {
     let history = useHistory();
-
+    console.log(history);
     const [open, setOpen] = useState(false);
     const [selectOrders, setSelectOrders] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -119,7 +119,7 @@ function ViewOrderPage() {
         axios.get('http://localhost:4000/getOrders').then(response=>{
             const data = response.data;
             const mapped = data.map(mapMyOrder);
-            console.log(mapped);
+            // console.log(mapped);
 
             setRow(mapped);
         })
@@ -132,7 +132,6 @@ function ViewOrderPage() {
     const handleClose = (event, reason) => {
       setOpen(false);
     };
-
 
     const deletedSelectedOrders = (selectedOrders) =>{
       axios.post('http://localhost:4000/deleteSelectedOrders', {

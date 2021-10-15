@@ -96,7 +96,8 @@ app.post("/add-order", async (req, res)=>{
         lastname: req.body.lastname,
         email: req.body.email,
         phonenumber: req.body.phonenumber,
-        description: req.body.description
+        description: req.body.description,
+        isready: false
     }],
     pickuptime: req.body.pickuptime
 });
@@ -167,9 +168,7 @@ app.post("/deleteSelectedOrders", async (req, res) =>{
 app.post("/getOrdersByEmail", async (req, res) =>{
     let email = req.body.email;
     var orders = await Order.find({'patient.email' : email});
-    console.log(req.params);
     res.send(orders);
-
 })
 //#region 
 

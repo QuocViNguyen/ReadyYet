@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Collapse from '@material-ui/core/Collapse';
-
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
+import PickupOrdersViewPage from './PickupOrdersViewPage';
+import ReactDOM from 'react-dom'; // you used 'react-dom' as 'ReactDOM'
 
 
 class LoginSuccessPage extends Component {
@@ -30,8 +31,9 @@ class LoginSuccessPage extends Component {
                     email: this.state.email
                 }
               ).then(response=>{
-                console.log(response.data);
-
+                // console.log(response.data);
+                // ReactDOM.render(<PickupOrdersViewPage orders={response.data}/>, document.getElementById('content'));
+                this.props.history.push('/PickupOrdersViewPage', [response.data]);
                 // if (response.data === "SUCCESS"){
                 //   popSuccessMessage();
                 //   setTimeout(function (){window.location.reload()}, 2000);

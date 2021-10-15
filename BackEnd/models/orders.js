@@ -23,6 +23,10 @@ const orderSchema = new Schema({
             description: {
                 type: String,
                 require: true
+            },
+            isready: {
+                type: Boolean,
+                require: true
             }
         }]
     ,

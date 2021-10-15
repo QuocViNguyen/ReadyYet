@@ -8,6 +8,7 @@ import LoginSuccessPage from '../PharmacistPage/LoginSuccessPage';
 import AddOrderPage from '../PharmacistPage/AddOrderPage';
 import ViewOrderPage from '../PharmacistPage/ViewOrderPage';
 import PickupEntryPage from '../PickupPage/PickupEntryPage';
+import PickupOrdersViewPage from '../PickupPage/PickupOrdersViewPage';
 
 class EntryPage extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class EntryPage extends Component {
     render() { 
         return (
             <Router>
-                <Box className='content'>
+                <Box className='content' id='content'>
                     <Switch>
                         <Route exact path='/' component={EntryPageContent} />
                         <Route exact path='/login' component={PharmacistLoginPage} />
@@ -26,6 +27,7 @@ class EntryPage extends Component {
                         <Route exact path='/ViewOrderPage' component={ViewOrderPage} />
                         <Route exact path='/AddOrderPage' component={AddOrderPage} />
                         <Route exact path='/PickupEntryPage' component={PickupEntryPage} />
+                        <Route exact path='/PickupOrdersViewPage' component={PickupOrdersViewPage} />
                     </Switch>
                 </Box>
             </Router>
